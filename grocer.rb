@@ -23,6 +23,9 @@ def apply_coupons(cart, coupons)
   product=coupon[:item]
   if hash.key?(product)==true
     #updating number in the cart 
+    if hash[product][:count] <= coupon[:num]
+      continue†
+    end
     hash[product][:count]-=coupon[:num]
     product_w_coupon={
       :price=>coupon[:cost]/coupon[:num],
