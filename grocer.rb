@@ -20,25 +20,25 @@ end
 def apply_coupons(cart, coupons)
   hash=cart.clone;
   coupons.each{|coupon|
-  product=coupon[:item]
-  if hash.key?(product)==true
-    #updating number in the cart 
-    if hash[product][:count] >= coupon[:num]
-      next
+    product=coupon[:item]
+    if hash.key?(product)==true
+      #updating number in the cart 
+      if hash[product][:count] >= coupon[:num]
+        next
+      end
+      hash[product][:count]-=coupon[:num]
+      product_w_coupon={
+        :price=>coupon[:cost]/coupon[:num],
+        :clearance=>hash[product][:clearance],
+        :count=>coupon[:num]
+      }
+      if hash.key?(product +" W/COUPON")==true
+        hash[product+" W/COUPON"][:count]+=coupon[:num]
+      else
+        hash.store(product +" W/COUPON",product_w_coupon)
+      end  
     end
-    hash[product][:count]-=coupon[:num]
-    product_w_coupon={
-      :price=>coupon[:cost]/coupon[:num],
-      :clearance=>hash[product][:clearance],
-      :count=>coupon[:num]
     }
-    if hash.key?(product +" W/COUPON")==true
-      hash[product+" W/COUPON"][:count]+=coupon[:num]
-    else
-      hash.store(product +" W/COUPON",product_w_coupon)
-    end  
-  end
-  }
   return hash
 end
 
