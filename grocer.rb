@@ -24,7 +24,7 @@ def apply_coupons(cart, coupons)
   if hash.key?(product)==true
     #updating number in the cart 
     if hash[product][:count] <= coupon[:num]
-      continue†
+      next
     end
     hash[product][:count]-=coupon[:num]
     product_w_coupon={
